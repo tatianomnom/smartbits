@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title></title>
+    <link th:href="@{/css/normalize.css}" rel="stylesheet"/>
+    <link th:href="@{/css/foundation.css}" rel="stylesheet"/>
+</head>
+<body>
+
+<p th:text="${msg.summary}">demo summary</p>
+
+<p th:text="${msg.notes}">demo description</p>
+
+<p th:text="${msg.timestamp}">demo timestamp</p>
+
+</body>
+</html>
