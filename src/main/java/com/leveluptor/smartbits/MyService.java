@@ -22,8 +22,8 @@ public class MyService {
         this.userRepository = userRepository;
     }
 
-    public List<Message> findMessages() {
-        return messageRepository.findAllByOrderByTimestampDesc();
+    public List<Message> findMessages(User user) {
+        return messageRepository.findAllByAuthorOrderByTimestampDesc(user);
     }
 
     public Message findMessageById(Long id) {

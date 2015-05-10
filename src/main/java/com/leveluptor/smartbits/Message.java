@@ -1,8 +1,6 @@
 package com.leveluptor.smartbits;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Calendar;
 
@@ -18,6 +16,10 @@ public class Message {
     private String notes;
 
     private Timestamp timestamp;
+
+    @ManyToOne
+    @JoinColumn
+    private User author;
 
     Message() {
 
@@ -40,9 +42,10 @@ public class Message {
     }
 
 
-    public Message(String summary, String notes) {
+    public Message(String summary, String notes, User author) {
         this.summary = summary;
         this.notes = notes;
+        this.author = author;
         //todo java 8?
         timestamp = new Timestamp(Calendar.getInstance().getTime().getTime());
     }
@@ -58,6 +61,15 @@ public class Message {
                 ", summary='" + summary + '\'' +
                 ", notes='" + notes + '\'' +
                 ", timestamp=" + timestamp +
+                ", author=" + author +
                 '}';
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 }
