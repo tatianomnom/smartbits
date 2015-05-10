@@ -51,6 +51,6 @@ public class User {
                 '}';
     }
 
-    protected User() {
+    User() {
     }
 }

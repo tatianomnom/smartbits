@@ -10,7 +10,12 @@
 
 <div class="row">
 
-    <div class="large-6 columns">
+    <div class="large-6 large-offset-3 columns">
+
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" class="button small alert" value="Log out"/>
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        </form>
 
         <form th:action="@{/messages}" method="post">
             <fieldset>

@@ -19,7 +19,7 @@ public class Message {
 
     private Timestamp timestamp;
 
-    protected Message() {
+    Message() {
 
     }
 

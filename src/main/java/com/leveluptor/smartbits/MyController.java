@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class MyController {
@@ -28,15 +27,15 @@ public class MyController {
     }
 
     @RequestMapping(value = "/messages", method = RequestMethod.POST)
-    public ModelAndView addOne(@RequestParam("summary") String summary, @RequestParam("notes") String notes) {
+    public String addOne(@RequestParam("summary") String summary, @RequestParam("notes") String notes) {
         myService.addMessage(new Message(summary, notes));
-        return new ModelAndView("redirect:/messages"); //todo can it be simpler?
+        return "redirect:/messages";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ModelAndView registerUser(@RequestParam("username") String username, @RequestParam("password") String password) {
+    public String registerUser(@RequestParam("username") String username, @RequestParam("password") String password) {
         myService.addUser(username, password);
-        return new ModelAndView("redirect:/messages");
+        return "redirect:/messages";
     }
 
     @RequestMapping(value = "/register")

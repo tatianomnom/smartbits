@@ -19,13 +19,18 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .formLogin().loginPage("/login").permitAll()
+                .formLogin().loginPage("/login").defaultSuccessUrl("/messages").permitAll()
                 .and()
                 .logout().permitAll()
                 .and()
                 .authorizeRequests()
                 .antMatchers("/register").permitAll()
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
+                .and()
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/")
+                .permitAll();
     }
 
     @Autowired

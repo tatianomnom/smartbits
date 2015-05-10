@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="row">
-    <div class="large-4 columns">
+    <div class="large-4 large-offset-4 columns">
         <div th:if="${param.error}">
             <label class="error">Invalid combination of username and password.</label>
         </div>
@@ -16,8 +16,8 @@
         </div>
         <form th:action="@{/login}" method="post">
             <fieldset>
-                <label> User Name : <input type="text" name="username"/> </label>
-                <label> Password: <input type="password" name="password"/> </label>
+                <label>Username:<input type="text" name="username"/> </label>
+                <label>Password:<input type="password" name="password"/> </label>
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                 <input type="submit" class="button" value="Sign In"/>
             </fieldset>
