@@ -30,6 +30,17 @@ public class MyController {
     @RequestMapping(value = "/messages", method = RequestMethod.POST)
     public ModelAndView addOne(@RequestParam("summary") String summary, @RequestParam("notes") String notes) {
         myService.addMessage(new Message(summary, notes));
+        return new ModelAndView("redirect:/messages"); //todo can it be simpler?
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public ModelAndView registerUser(@RequestParam("username") String username, @RequestParam("password") String password) {
+        myService.addUser(username, password);
         return new ModelAndView("redirect:/messages");
+    }
+
+    @RequestMapping(value = "/register")
+    public String register() {
+        return "register";
     }
 }
