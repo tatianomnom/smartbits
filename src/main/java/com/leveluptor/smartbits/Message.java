@@ -1,6 +1,9 @@
 package com.leveluptor.smartbits;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.sql.Timestamp;
 import java.util.Calendar;
 
@@ -18,7 +21,6 @@ public class Message {
     private Timestamp timestamp;
 
     @ManyToOne
-    @JoinColumn
     private User author;
 
     Message() {

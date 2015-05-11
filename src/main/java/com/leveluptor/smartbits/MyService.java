@@ -1,6 +1,7 @@
 package com.leveluptor.smartbits;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +23,9 @@ public class MyService {
         this.userRepository = userRepository;
     }
 
+    @Value("${app.security.bcryptrounds}")
+    private int rounds;
+
     public List<Message> findMessages(User user) {
         return messageRepository.findAllByAuthorOrderByTimestampDesc(user);
     }
@@ -35,7 +39,7 @@ public class MyService {
     }
 
     public void addUser(String username, String password) {
-        userRepository.save(new User(username, new BCryptPasswordEncoder().encode(password)));
+        userRepository.save(new User(username, new BCryptPasswordEncoder(rounds).encode(password)));
     }
 
     public Optional<User> findByUsername(String username) {
