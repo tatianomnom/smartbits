@@ -7,11 +7,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
 
 @Controller
 public class AuthController {
@@ -28,13 +30,18 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ModelAndView registerUser(@RequestParam("username") String username, @RequestParam("password") String password, Model model) {
-        String outcome = myService.addUser(username, password);
+    public ModelAndView registerUser(@ModelAttribute("form") @Valid RegistrationForm form, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            ModelAndView modelAndView = new ModelAndView("register", "form", form);
+//            modelAndView.addObject("form", form);
+            return modelAndView;
+        }
+        String outcome = myService.addUser(form.getUsername(), form.getPassword());
         if (outcome.isEmpty()) {
 
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+            UserDetails userDetails = userDetailsService.loadUserByUsername(form.getUsername());
             UsernamePasswordAuthenticationToken token =
-                    new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
+                    new UsernamePasswordAuthenticationToken(userDetails, form.getPassword(), userDetails.getAuthorities());
             authenticationManager.authenticate(token);
 
             if (token.isAuthenticated()) {
@@ -42,15 +49,16 @@ public class AuthController {
                 return new ModelAndView("redirect:/messages");
             }
         } else {
+//            bindingResult.rejectValue("username", "error.form", outcome);
             return new ModelAndView("register", "error", outcome);
         }
 
         return new ModelAndView("redirect:/");
     }
 
-    @RequestMapping(value = "/register")
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
     //todo is it possible to remove this method and leave only mappings from config?
-    public String register() {
+    public String register(@ModelAttribute("form") @Valid RegistrationForm form) {
         return "register";
     }
 
