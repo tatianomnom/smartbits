@@ -15,14 +15,17 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class AuthController {
-    @Autowired
     private AuthenticationManager authenticationManager;
-    @Autowired
     private UserDetailsService userDetailsService;
 
-    @Autowired
     private MyService myService;
 
+    @Autowired
+    public AuthController(AuthenticationManager authenticationManager, UserDetailsService userDetailsService, MyService myService) {
+        this.authenticationManager = authenticationManager;
+        this.userDetailsService = userDetailsService;
+        this.myService = myService;
+    }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ModelAndView registerUser(@RequestParam("username") String username, @RequestParam("password") String password, Model model) {

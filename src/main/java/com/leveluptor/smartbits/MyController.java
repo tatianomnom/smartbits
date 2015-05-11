@@ -14,8 +14,12 @@ import java.util.Optional;
 @Controller
 public class MyController {
 
-    @Autowired
     private MyService myService;
+
+    @Autowired
+    public MyController(MyService myService) {
+        this.myService = myService;
+    }
 
     @RequestMapping("/messages")
     String home(Model model, Principal principal) {
