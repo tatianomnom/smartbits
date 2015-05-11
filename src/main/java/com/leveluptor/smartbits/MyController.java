@@ -37,14 +37,4 @@ public class MyController {
         return "redirect:/messages";
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String registerUser(@RequestParam("username") String username, @RequestParam("password") String password) {
-        myService.addUser(username, password);
-        return "redirect:/messages";
-    }
-
-    @RequestMapping(value = "/register")
-    public String register() {
-        return "register";
-    }
 }
