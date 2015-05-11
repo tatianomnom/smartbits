@@ -38,8 +38,13 @@ public class MyService {
         messageRepository.save(message);
     }
 
-    public void addUser(String username, String password) {
-        userRepository.save(new User(username, new BCryptPasswordEncoder(rounds).encode(password)));
+    public String addUser(String username, String password) {
+        if (userRepository.findOneByUsername(username) == null) {
+            userRepository.save(new User(username, new BCryptPasswordEncoder(rounds).encode(password)));
+            return "";
+        } else {
+            return "User already exists";
+        }
     }
 
     public Optional<User> findByUsername(String username) {
