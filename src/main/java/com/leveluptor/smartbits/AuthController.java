@@ -33,7 +33,6 @@ public class AuthController {
     public ModelAndView registerUser(@ModelAttribute("form") @Valid RegistrationForm form, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             ModelAndView modelAndView = new ModelAndView("register", "form", form);
-//            modelAndView.addObject("form", form);
             return modelAndView;
         }
         String outcome = myService.addUser(form.getUsername(), form.getPassword());
@@ -49,8 +48,8 @@ public class AuthController {
                 return new ModelAndView("redirect:/messages");
             }
         } else {
-//            bindingResult.rejectValue("username", "error.form", outcome);
-            return new ModelAndView("register", "error", outcome);
+            bindingResult.rejectValue("username", "TODO-nonexistent-code", outcome);
+            return new ModelAndView("register", "form", form);
         }
 
         return new ModelAndView("redirect:/");

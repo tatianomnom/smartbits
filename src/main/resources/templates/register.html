@@ -16,6 +16,8 @@
             <fieldset>
                 <label>Username:<input th:field="*{username}" type="text"
                                        th:value="${form == null ? '' : form.username}"/> </label>
+
+                <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Bad username</p>
                 <label>Password:<input th:field="*{password}" type="password"/> </label>
 
                 <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Bad password</p>
