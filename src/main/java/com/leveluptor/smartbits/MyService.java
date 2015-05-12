@@ -6,6 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +36,9 @@ public class MyService {
     }
 
     public void addMessage(Message message) {
+        List<Tag> tags = new ArrayList<>();
+        new TagExtractor().extractTags(message.getSummary()).forEach(str -> tags.add(new Tag(str)));
+        message.setTags(tags);
         messageRepository.save(message);
     }
 

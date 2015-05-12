@@ -32,6 +32,8 @@
 
             <p th:text="${msg.notes}">demo description</p>
 
+            <span>Tags: </span> <span th:text="${#strings.listJoin(msg.tags, ',')}">sometag</span>
+
             <p>
                 <small th:text="${#calendars.format(msg.timestamp,'dd MMMM yyyy')}">demo timestamp</small>
             </p>

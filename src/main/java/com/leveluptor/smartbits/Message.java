@@ -1,11 +1,9 @@
 package com.leveluptor.smartbits;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.List;
 
 @Entity
 public class Message {
@@ -27,6 +25,16 @@ public class Message {
 
     }
 
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "message_tags",
+            joinColumns = @JoinColumn(name = "tag_id"),
+            inverseJoinColumns = @JoinColumn(name = "message_id"))
+    private List<Tag> tags;
+
     public String getSummary() {
         return summary;
     }
@@ -43,6 +51,9 @@ public class Message {
         this.notes = notes;
     }
 
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
 
     public Message(String summary, String notes, User author) {
         this.summary = summary;
