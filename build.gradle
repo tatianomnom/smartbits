@@ -12,6 +12,7 @@ buildscript {
 }
 
 apply plugin: 'java'
+apply plugin: 'groovy'
 apply plugin: 'spring-boot'
 apply plugin: 'io.spring.dependency-management'
 
@@ -35,7 +36,9 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-security")
     compile("com.h2database:h2")
+    compile('org.codehaus.groovy:groovy-all:2.4.3')
     testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile("org.spockframework:spock-core:1.0-groovy-2.4")
 }
 
 task wrapper(type: Wrapper) {

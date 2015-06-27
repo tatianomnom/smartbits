@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 public class TagExtractor {
 
-    private static final Pattern PATTERN = Pattern.compile("(^|[^\\w])#(\\w+)", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
+    private static final Pattern PATTERN = Pattern.compile("(^|[^\\w])#(\\w+)");
 
     public List<String> extractTags(String source) {
         List<String> result = new ArrayList<>();
