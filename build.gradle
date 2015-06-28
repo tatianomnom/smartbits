@@ -3,11 +3,12 @@ buildscript {
         springBootVersion = '1.2.3.RELEASE'
     }
     repositories {
-        mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath("io.spring.gradle:dependency-management-plugin:0.5.0.RELEASE")
+        classpath 'org.akhikhl.gretty:gretty:+'
     }
 }
 
@@ -15,6 +16,7 @@ apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'spring-boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'org.akhikhl.gretty'
 
 jar {
     baseName = 'smartbits'
@@ -42,5 +44,11 @@ dependencies {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.3'
+    gradleVersion = '2.4'
+}
+
+gretty {
+    springBoot = true
+    servletContainer = 'tomcat8'
+    managedClassReload = true
 }
